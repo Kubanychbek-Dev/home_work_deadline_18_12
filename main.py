@@ -1,14 +1,14 @@
 class PowerUnit:
-    def __init__(self):
-        self.__power = 60
+    def __init__(self, power=60):
+        self.__power = power
 
     def get_voltage(self):
         return f"Блок питания:\nподает напряжение {self.__power} ватт."
 
 
 class MotherBoard:
-    def __init__(self):
-        self.__chipset = "Intel Z790"
+    def __init__(self, chipset="Intel Z790"):
+        self.__chipset = chipset
 
     def get_chipset(self):
         return (f"Материнская плата:\n"
@@ -18,9 +18,9 @@ class MotherBoard:
 
 
 class CPU:
-    def __init__(self):
-        self.__clock_frequency = "4 ГГц"
-        self.__cores = 6
+    def __init__(self, frequency="4 ГГц", cores=6):
+        self.__clock_frequency = frequency
+        self.__cores = cores
 
     def get_cpu(self):
         return (f"Центральный процессор:\n"
@@ -36,10 +36,9 @@ class CPU:
 
 
 class RAM:
-    def __init__(self):
-        self.__memory_capacity = "16 ГБ"
-        self.__memory_frequency = "3200 МГц"
-        self.__file = ""
+    def __init__(self, capacity="16 ГБ", frequency="3200 МГц"):
+        self.__memory_capacity = capacity
+        self.__memory_frequency = frequency
 
     def get_ram(self):
         return (f"Оперативная память:\n"
@@ -48,17 +47,17 @@ class RAM:
 
 
 class SSD:
-    def __init__(self):
-        self.__volume = "512ГБ"
+    def __init__(self, volume="512ГБ"):
+        self.__volume = volume
 
     def get_ssd(self):
         return f"SSD\nобъем: {self.__volume}"
 
 
 class VideoCard:
-    def __init__(self):
-        self.__model = "GeForce RTX 4090"
-        self.__volume = "2 GB"
+    def __init__(self, model="GeForce RTX 4090", volume="2 GB"):
+        self.__model = model
+        self.__volume = volume
 
     def get_card(self):
         return f"Video card:\nмодель: {self.__model}\nобъем памяти: {self.__volume}"
