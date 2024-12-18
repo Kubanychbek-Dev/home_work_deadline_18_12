@@ -1,110 +1,158 @@
+"""Basic class"""
 class PowerUnit:
-    def __init__(self, power=60):
-        self.__power = power
+    def __init__(self):
+        super().__init__()
+        self.__power = 60
 
-    def get_voltage(self):
+    def submit_voltage(self):
         return f"Блок питания:\nподает напряжение {self.__power} ватт."
 
 
 class MotherBoard:
-    def __init__(self, chipset="Intel Z790"):
-        self.__chipset = chipset
+    def __init__(self):
+        super().__init__()
+        self.__chipset = "Intel Z790"
 
-    def get_chipset(self):
-        return (f"Материнская плата:\n"
-                f"Чипсет '{self.__chipset}' координирует работу всего оборудования"
-                f" подключенного к материнской плате а также "
-                f"перераспределить напряжение от БП по компонентам")
+    def redistribute_voltage(self):
+        return f"Чипсет {self.__chipset}:\nперераспределить напряжение от БП по компонентам"
 
 
 class CPU:
-    def __init__(self, frequency="4 ГГц", cores=6):
-        self.__clock_frequency = frequency
-        self.__cores = cores
+    def __init__(self):
+        super().__init__()
+        self.__clock_frequency = "4 ГГц"
+        self.__cores = 6
 
-    def get_cpu(self):
+    def turbo_mode(self):
         return (f"Центральный процессор:\n"
-                f"тактовая частота: {self.__clock_frequency}"
-                f"\nколичество ядер:{self.__cores}")
-
-    @staticmethod
-    def get_turbo(active="off"):
-        if  active == "active":
-            print("Турбо режим активировано!")
-        else:
-            print("Турбо режим отключено!")
+                f"Тактовая частота: {self.__clock_frequency}\nКоличество ядер: {self.__cores}\n"
+                f"Активирует турбо режим")
 
 
 class RAM:
-    def __init__(self, capacity="16 ГБ", frequency="3200 МГц"):
-        self.__memory_capacity = capacity
-        self.__memory_frequency = frequency
+    def __init__(self):
+        super().__init__()
+        self.__memory_capacity = "16 ГБ"
+        self.__memory_frequency = "3200 МГц"
 
-    def get_ram(self):
+    def load_upload_data(self):
         return (f"Оперативная память:\n"
-                f"объем памяти: {self.__memory_capacity}\n"
-                f"частота памяти: {self.__memory_frequency}")
+                f"Объем памяти: {self.__memory_capacity}\nЧастота памяти: {self.__memory_frequency}\n"
+                f"Загружает данные, выгружает данные")
 
 
 class SSD:
-    def __init__(self, volume="512ГБ"):
-        self.__volume = volume
+    def __init__(self):
+        super().__init__()
+        self.__volume = "512ГБ"
 
-    def get_ssd(self):
-        return f"SSD\nобъем: {self.__volume}"
+    def save_data(self):
+        return (f"SSD:\nОбьем памяти: {self.__volume}\n"
+                f"Сохраняет данные, удаляет данные")
 
 
 class VideoCard:
-    def __init__(self, model="GeForce RTX 4090", volume="2 GB"):
-        self.__model = model
-        self.__volume = volume
-
-    def get_card(self):
-        return f"Video card:\nмодель: {self.__model}\nобъем памяти: {self.__volume}"
-
-
-class Computer:
     def __init__(self):
-        self.__power_unit = PowerUnit()
-        self.__motherboard = MotherBoard()
+        self.__model = "GeForce RTX 4090"
+        self.__volume = "2 GB"
+
+    def display_image(self):
+        return (f"Видеокарта:\nМодель видеокарты:{self.__model}\n"
+                f"Объем памяти: {self.__volume}\n"
+                f"вывести изображение на экран")
+
+
+"""Composition"""
+class Computer1:
+    print("Этот 1-класс компьютер реализовано при помощи композиции")
+    def __init__(self):
+        self.__power = PowerUnit()
+        self.__mother = MotherBoard()
         self.__cpu = CPU()
         self.__ram = RAM()
         self.__ssd = SSD()
         self.__video_card = VideoCard()
 
-    def power_unit(self):
-        return self.__power_unit.get_voltage()
+    def power(self):
+        return self.__power.submit_voltage()
 
-    def motherboard(self):
-        return self.__motherboard.get_chipset()
+    def mother(self):
+        return self.__mother.redistribute_voltage()
 
     def cpu(self):
-        return self.__cpu.get_cpu()
+        return self.__cpu.turbo_mode()
 
     def ram(self):
-        return self.__ram.get_ram()
+        return self.__ram.load_upload_data()
 
     def ssd(self):
-        return self.__ssd.get_ssd()
+        return self.__ssd.save_data()
 
     def video_card(self):
-        return self.__video_card.get_card()
-
-    def turbo_mode(self, active="off"):
-        self.__cpu.get_turbo(active)
+        return self.__video_card.display_image()
 
 
-computer = Computer()
-print(computer.power_unit())
+computer1 = Computer1()
+print(computer1.power())
 print()
-print(computer.motherboard())
+print(computer1.mother())
 print()
-print(computer.cpu())
+print(computer1.cpu())
 print()
-print(computer.ram())
+print(computer1.ram())
 print()
-print(computer.ssd())
+print(computer1.ssd())
 print()
-print(computer.video_card())
+print(computer1.video_card())
+print("".center(200, "*"))
 print()
-computer.turbo_mode("active")
+
+
+"""Multiple inheritance"""
+class Computer2(PowerUnit, MotherBoard, CPU, RAM, SSD, VideoCard):
+    print("Этот 2-класс компьютер реализовано"
+          " при помощи множественного наследования")
+
+    # def power(self):
+    #     return self.submit_voltage()
+    #
+    # def mother(self):
+    #     return self.redistribute_voltage()
+    #
+    # def cpu(self):
+    #     return self.turbo_mode()
+    #
+    # def ram(self):
+    #     return self.load_upload_data()
+    #
+    # def ssd(self):
+    #     return self.save_data()
+    #
+    # def video_card(self):
+    #     return self.display_image()
+
+
+computer2 = Computer2()
+# print(computer2.power())
+# print()
+# print(computer2.mother())
+# print()
+# print(computer2.cpu())
+# print()
+# print(computer2.ram())
+# print()
+# print(computer2.ssd())
+# print()
+# print(computer2.video_card())
+
+print(computer2.submit_voltage())
+print()
+print(computer2.redistribute_voltage())
+print()
+print(computer2.turbo_mode())
+print()
+print(computer2.load_upload_data())
+print()
+print(computer2.save_data())
+print()
+print(computer2.display_image())
